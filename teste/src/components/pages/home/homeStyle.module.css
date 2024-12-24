@@ -1,0 +1,11 @@
+.view3D{
+    width: 80%;
+    height: 400px;
+
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 1rem;
+}

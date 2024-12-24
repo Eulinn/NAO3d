@@ -1,0 +1,42 @@
+.DropDownTitle{
+    width: 100%;
+
+    display: flex;
+    padding: 1rem .3rem;
+    color: var(--C2);
+    opacity: .9;
+    cursor: pointer;
+}
+
+.DropDownTitle span{
+    font-size: 1.3rem;
+    display: flex;
+    margin-right: .3rem;
+    transition: .2s ease-in-out;
+}
+
+.DropDownTitle span.rotate{
+    transform: rotate(180deg);
+}
+
+
+
+.DropDownTitle p{
+    font-weight: 500;
+}
+
+
+.DropDown{
+    width: 100%;
+
+    display: flex;
+    max-height: 0;
+    transition: .3s ease-in-out;
+
+    overflow-y: hidden;
+}
+
+
+.DropDown.open{
+    max-height: 1000px;
+}

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Nightfnia_freddy
+* source:	https://sketchfab.com/3d-models/nightfnia-freddy-130da319b6fd4c949f71594cf0f2ff45
+* author:	jaimerivera7619 (https://sketchfab.com/jaimerivera7619)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Nightfnia_freddy" (https://sketchfab.com/3d-models/nightfnia-freddy-130da319b6fd4c949f71594cf0f2ff45) by jaimerivera7619 (https://sketchfab.com/jaimerivera7619) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
