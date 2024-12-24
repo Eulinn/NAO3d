@@ -45,102 +45,106 @@ const Home = () => {
 
 
     //CRIAÇÃO 3D AMBIENTE
-    // useEffect(() => {
-    //   const scene = new THREE.Scene();
+    useEffect(() => {
+      const scene = new THREE.Scene();
   
-    //   //Constroi a câmera do modelo 3d
-    //   const camera = new THREE.PerspectiveCamera(
-    //     45,
-    //     mountRef.current.clientWidth / mountRef.current.clientHeight,
-    //     0.1,
-    //     1000
-    //   );
-    //   camera.position.set(0, 10, 30);
-    //   camera.lookAt(0, 0, 0);
+      //Constroi a câmera do modelo 3d
+      const camera = new THREE.PerspectiveCamera(
+        45,
+        mountRef.current.clientWidth / mountRef.current.clientHeight,
+        0.1,
+        1000
+      );
+      camera.position.set(0, 10, 30);
+      camera.lookAt(0, 0, 0);
   
-    //   //Contrução do renderizador dos modelos
-    //   const renderer = new THREE.WebGLRenderer({ antialias: true });
-    //   rendererRef.current = renderer;
+      //Contrução do renderizador dos modelos
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      rendererRef.current = renderer;
   
-    //   renderer.setSize(
-    //     mountRef.current.clientWidth,
-    //     mountRef.current.clientHeight
-    //   );
-    //   renderer.setClearColor(backgroundColor);
+      renderer.setSize(
+        mountRef.current.clientWidth,
+        mountRef.current.clientHeight
+      );
+      renderer.setClearColor(backgroundColor);
   
-    //   renderer.shadowMap.enabled = true; // Sombras para ficar bonitin
-    //   mountRef.current.appendChild(renderer.domElement);
+      renderer.shadowMap.enabled = true; // Sombras para ficar bonitin
+      mountRef.current.appendChild(renderer.domElement);
   
-    //   //LUZ direcional para ficar mais visível e realista
-    //   const light = new THREE.AmbientLight(0xffffff, 1); // Luz ambiente fraca
-    //   scene.add(light);
+      //LUZ direcional para ficar mais visível e realista
+      const light = new THREE.AmbientLight(0xffffff, 1); // Luz ambiente fraca
+      scene.add(light);
   
-    //   const directionalLight = new THREE.DirectionalLight(0xffffff, 2); // Luz direcional mais intensa
-    //   directionalLight.position.set(10, 10, 10); // Posição da luz muito bugada e difícil de entender
-    //   directionalLight.shadow.mapSize.width = 1024;
-    //   directionalLight.shadow.mapSize.height = 1024;
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 2); // Luz direcional mais intensa
+      directionalLight.position.set(10, 10, 10); // Posição da luz muito bugada e difícil de entender
+      directionalLight.shadow.mapSize.width = 1024;
+      directionalLight.shadow.mapSize.height = 1024;
   
-    //   scene.add(directionalLight);
+      scene.add(directionalLight);
 
   
-    //   //IMPORTAR modelo aqui
-    //   // const loader = new GLTFLoader();
-    //   // loader.load(
-    //   //   "/assets/scene.gltf",
-    //   //   (gltf) => {
-    //   //     // POSSÍVEL SOLUÇÃO DOS MEUS PROBLEMAS DE TRAVAMENDO MEU DEUS - Não foi!
-    //   //     if (modelRef.current) {
-    //   //       scene.remove(modelRef.current);
+      // IMPORTAR modelo aqui
+      const loader = new GLTFLoader();
+      loader.load(
+        "/assets/scene.gltf",
+        (gltf) => {
+          // POSSÍVEL SOLUÇÃO DOS MEUS PROBLEMAS DE TRAVAMENDO MEU DEUS - Não foi!
+          if (modelRef.current) {
+            scene.remove(modelRef.current);
             
-    //   //       // Itera e apaga os trem
-    //   //       modelRef.current.traverse((child) => {
-    //   //         if (child.isMesh) {
-    //   //           if (child.geometry) child.geometry.dispose();
-    //   //           if (child.material) {
-    //   //             if (Array.isArray(child.material)) {
-    //   //               child.material.forEach((mat) => mat.dispose());
-    //   //             } else {
-    //   //               child.material.dispose();
-    //   //             }
-    //   //           }
-    //   //         }
-    //   //       });
-    //   //     }
+            // Itera e apaga os trem antigo
+            modelRef.current.traverse((child) => {
+              if (child.isMesh) {
+                if (child.geometry) child.geometry.dispose();
+                if (child.material) {
+                  if (Array.isArray(child.material)) {
+                    child.material.forEach((mat) => mat.dispose());
+                  } else {
+                    child.material.dispose();
+                  }
+                }
+              }
+            });
+          }
 
 
 
-    //   //     const model = gltf.scene;
-    //   //     scene.add(model);
+          const model = gltf.scene;
+          scene.add(model);
   
-    //   //     // Ajustes
-    //   //     model.scale.set(1, 1, 1);
-    //   //     model.position.set(0, -10, 0);
+          // Ajustes
+          model.scale.set(1, 1, 1);
+          model.position.set(0, -10, 0);
   
-    //   //     // Referencia para usar depois
-    //   //     modelRef.current = model;
+          // Referencia para usar depois
+          modelRef.current = model;
 
           
           
   
-    //   //   },
-    //   //   undefined,
-    //   //   (error) => {
-    //   //     console.error("Erro ao carregar modelo GLTF:", error);
-    //   //   }
-    //   // );
+        },
+        undefined,
+        (error) => {
+          console.error("Erro ao carregar modelo GLTF:", error);
+        }
+      );
 
-    //   const loader = new URDFLoader();
-    //   loader.load(
-    //     '/assets/nao.urdf',
-    //     (robot) => {
-    //       scene.add(robot);
-    //       robot.rotation.set(0, Math.PI / 2, 0);
-    //     },
-    //     undefined,
-    //     (error) => {
-    //       console.error("Erro ao carregar URDF:", error);
-    //     }
-    //   );
+
+
+
+      //ISSO DAQUI TA COM ERRO DE IMPORTAÇÃO DO NAO PQ NÃO SEI CONVERTER SDF PRA URDF MEU DEUS
+      // const loader = new URDFLoader();
+      // loader.load(
+      //   '/assets/nao.urdf',
+      //   (robot) => {
+      //     scene.add(robot);
+      //     robot.rotation.set(0, Math.PI / 2, 0);
+      //   },
+      //   undefined,
+      //   (error) => {
+      //     console.error("Erro ao carregar URDF:", error);
+      //   }
+      // );
 
 
 
@@ -149,50 +153,50 @@ const Home = () => {
 
 
   
-    //   // OrbitControls (controle do mouse)
-    //   const controls = new OrbitControls(camera, renderer.domElement);
-    //   controls.enableDamping = true; // Inércia no movimento (babado realista)
-    //   controls.dampingFactor = 0.05;
-    //   controls.screenSpacePanning = false;
-    //   controls.maxPolarAngle = Math.PI / 2; // Limitar a rotação vertical
-    //   controls.minDistance = 2;
-    //   controls.maxDistance = 50;
-    //   controls.enablePan = false;
-    //   controls.rotateSpeed = 0.5;
-    //   controls.zoomSpeed = 1;
-    //   controls.panSpeed = 0.8;
+      // OrbitControls (controle do mouse)
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true; // Inércia no movimento (babado realista)
+      controls.dampingFactor = 0.05;
+      controls.screenSpacePanning = false;
+      controls.maxPolarAngle = Math.PI / 2; // Limitar a rotação vertical
+      controls.minDistance = 2;
+      controls.maxDistance = 50;
+      controls.enablePan = false;
+      controls.rotateSpeed = 0.5;
+      controls.zoomSpeed = 1;
+      controls.panSpeed = 0.8;
   
-    //   controls.addEventListener("change", () => {
-    //     setNeedRender(true);
-    //   });
+      controls.addEventListener("change", () => {
+        setNeedRender(true);
+      });
   
-    //   const animate = () => {
-    //     requestAnimationFrame(animate);
-    //     controls.update(); // Atualiza a posição da câmera pro orbits funcionar amém jesus
+      const animate = () => {
+        requestAnimationFrame(animate);
+        controls.update(); // Atualiza a posição da câmera pro orbits funcionar amém jesus
   
   
-    //     if (needRender) {
-    //       controls.update();
-    //       renderer.render(scene, camera);
-    //       setNeedRender(false);
-    //     }
-    //   };
-    //   renderer.setAnimationLoop(animate);
+        if (needRender) {
+          controls.update();
+          renderer.render(scene, camera);
+          setNeedRender(false);
+        }
+      };
+      renderer.setAnimationLoop(animate);
   
-    //   return () => {
-    //     if (mountRef.current && renderer.domElement) {
-    //       mountRef.current.removeChild(renderer.domElement);
-    //     }
-    //     renderer.dispose();
-    //     scene.clear();
-    //   };
-    // }, []);
+      return () => {
+        if (mountRef.current && renderer.domElement) {
+          mountRef.current.removeChild(renderer.domElement);
+        }
+        renderer.dispose();
+        scene.clear();
+      };
+    }, []);
 
 
   return (
     <Page title={"Dashboard"}>
       <Container pdy-20 c>
-        {/* <div className={styleSheet.view3D} ref={mountRef}></div> */}
+        <div className={styleSheet.view3D} ref={mountRef}></div>
       </Container>
       <DropDown title={"Opções"}>
         <Container cl f pd15>
